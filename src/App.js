@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import fontData from './data/fonts.js';
 import {
   VictoryChart,
   VictoryGroup,
@@ -9,7 +10,9 @@ import {
   VictoryVoronoiTooltip
 } from 'victory';
 
-const fonts = [
+console.log(fontData)
+
+const myFonts = [
   {
     name: "Alloca Mono",
     interpolations: [
@@ -30,8 +33,9 @@ const fonts = [
       { style: 'Bold',         weight: 200 }
     ]
   }
-]
-;
+];
+
+const data = [...fontData, ...myFonts]
 
 class App extends Component {
   render() {
@@ -41,7 +45,7 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <VictoryChart
-          domainPadding={20}
+          domainPadding={100}
         >
           <VictoryAxis
             tickFormat={(el) => `${el}`}
@@ -50,18 +54,29 @@ class App extends Component {
             dependentAxis
             tickFormat={(el) => `${el}`}
           />
-        {fonts.map(font => (
-          <VictoryGroup
-            data={font.interpolations}
-            x="style"
-            y="weight" >
-            <VictoryLine
-              interpolation="catmullRom"
-              />
-            <VictoryScatter />
-          </VictoryGroup>
-        ))}
+          {data.map(font => (
+            <VictoryGroup
+              data={font.interpolations}
+              x="style"
+              y="weight" >
+              <VictoryLine
+                interpolation="catmullRom"
+                label={font.name}
+                />
+              <VictoryScatter />
+            </VictoryGroup>
+          ))}
         </VictoryChart>
+        <table>
+          {data.map(font => (
+            <tr>
+              <td>{font.name}</td>
+              {font.interpolations.map(interpolation => (
+                <td>{interpolation.weight}</td>
+              ))}
+            </tr>
+          ))}
+        </table>
       </div>
     );
   }

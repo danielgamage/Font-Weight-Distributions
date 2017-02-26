@@ -11,11 +11,11 @@ var options = {
   }
 }
 
-const glyphsURL = 'https://api.github.com/search/code?q=interpolationWeight+extension:glyphs'
+const searchURL = 'https://api.github.com/search/code?q=interpolationWeight+extension:glyphs'
 
 async function getGlyphsData() {
   try {
-    const searchResults = await axios(glyphsURL, options )
+    const searchResults = await axios(searchURL, options)
     const fontFamilies = Promise.all(searchResults.data.items.map(async (el) => {
       const file = await axios(el.url, options)
       const fontFamily = parseGlyphsFile(file.data.content)
@@ -31,7 +31,9 @@ async function getGlyphsData() {
 getGlyphsData()
 
 const writeToDisk = (data) => {
-  fs.writeFile("./src/data/fonts.json", JSON.stringify(data), function(err) {
+  const content = `module.exports = ${JSON.stringify(data, null, '\t')}`
+  console.log("Writing data to disk...")
+  fs.writeFile("./src/data/fonts.js", content, function(err) {
     if(err) {
       return console.log(err);
     }
