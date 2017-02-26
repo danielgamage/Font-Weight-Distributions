@@ -2,12 +2,12 @@ const axios = require('axios')
 const fs = require('fs')
 
 // YOU MUST SUPPLY YOUR OWN TOKEN FILE
-const token = require('./token.js').default
+const config = require('./config.js')
 
 var options = {
   headers: {
     "User-Agent": `interpolations-datafetcher`,
-    "Authorization": `token ${token}`
+    "Authorization": `token ${config.token}`
   }
 }
 
