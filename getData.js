@@ -42,20 +42,6 @@ async function getGlyphsData() {
   }
 }
 
-getGlyphsData()
-
-const writeToDisk = (data) => {
-  const content = `module.exports = ${JSON.stringify(data, null, '\t')}`
-  console.log("Writing data to disk...")
-  fs.writeFile("./src/data/fonts.js", content, function(err) {
-    if(err) {
-      return console.log(err);
-    }
-
-    console.log("The file was saved!");
-  });
-}
-
 const parseGlyphsFile = (fileBuffer) => {
   const file = new Buffer(fileBuffer, 'base64').toString('ascii')
   const familyName = file.match(/familyName = "(.*)";/)
@@ -75,3 +61,17 @@ const parseGlyphsFile = (fileBuffer) => {
   }
   return obj
 }
+
+const writeToDisk = (data) => {
+  const content = `module.exports = ${JSON.stringify(data, null, '\t')}`
+  console.log("Writing data to disk...")
+  fs.writeFile("./src/data/fonts.js", content, function(err) {
+    if(err) {
+      return console.log(err);
+    }
+
+    console.log("The file was saved!");
+  });
+}
+
+getGlyphsData()
