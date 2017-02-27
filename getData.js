@@ -1,6 +1,8 @@
 const axios = require('axios')
 const fs = require('fs')
 const ProgressBar = require('progress')
+const blacklist = require('./src/data/blacklist.js')
+const removeDuplicates = require('./src/utils/removeDuplicates.js')
 
 // YOU MUST SUPPLY YOUR OWN TOKEN FILE
 const config = require('./config.js')
@@ -26,12 +28,19 @@ async function getGlyphsData() {
     const searchResults = await axios(searchURL, options)
     // console.log(getLink(searchResults.headers.link))
 
-    const itemCount = await searchResults.data.items.length
-    const progress = new ProgressBar('Fetching files [:bar] :percent', {total: itemCount})
+    const dedupedItems = removeDuplicates(searchResults.data.items, 'repository.full_name')
+    console.log(`Deduped ${searchResults.data.items.length - dedupedItems.length} items`)
 
-    const fontFamilies = Promise.all(searchResults.data.items.map(async (el) => {
+    const filteredItems = dedupedItems.filter(el => {
+      return (blacklist.indexOf(el.repository.full_name) === -1)
+    })
+    console.log(`Filtered out ${dedupedItems.length - filteredItems.length} blacklisted items`)
+
+    const progress = new ProgressBar('Fetching files [:bar] :percent', {total: dedupedItems.length})
+
+    const fontFamilies = Promise.all(filteredItems.map(async (el) => {
       const file = await axios(el.url, options)
-      const fontFamily = parseGlyphsFile(file.data.content)
+      const fontFamily = parseGlyphsFile(file.data, el)
       progress.tick()
       return fontFamily
     }))
@@ -42,8 +51,8 @@ async function getGlyphsData() {
   }
 }
 
-const parseGlyphsFile = (fileBuffer) => {
-  const file = new Buffer(fileBuffer, 'base64').toString('ascii')
+const parseGlyphsFile = (fileData, originalQueryMatch) => {
+  const file = new Buffer(fileData.content, 'base64').toString('ascii')
   const familyName = file.match(/familyName = "(.*)";/)
   const instanceMatches = file.match(/\{\n?((?:interpolationWeight|customParameters \= \([.\S\s]*?\);)[.\S\s]*?)(?:\}[,\n])/g)
   const instances = instanceMatches.map(instance => {
@@ -57,6 +66,7 @@ const parseGlyphsFile = (fileBuffer) => {
   })
   const obj = {
     "name": familyName && familyName[1],
+    "url": originalQueryMatch.repository.html_url,
     "interpolations": instances
   }
   return obj

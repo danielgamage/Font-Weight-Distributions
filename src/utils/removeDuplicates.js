@@ -14,4 +14,4 @@ const removeDuplicates = (array, path) => {
   });
 }
 
-export default removeDuplicates
+module.exports = removeDuplicates
