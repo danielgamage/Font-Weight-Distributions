@@ -39,7 +39,7 @@ async function getData(url) {
     ))
     console.log(`Filtered out ${dedupedItems.length - filteredItems.length} blacklisted items`)
 
-    const progress = new ProgressBar('Fetching files [:bar] :percent', {total: dedupedItems.length})
+    const progress = new ProgressBar('Fetching files [:bar] :percent \n', {total: dedupedItems.length})
 
     const fontFamilies = Promise.all(filteredItems.map(async (el) => {
       const file = await axios(el.url, options)
@@ -49,7 +49,9 @@ async function getData(url) {
 
       console.log(await fontFamily)
       return await fontFamily
-    }))
+    })).then(result => result.filter((el) => (
+      !(el.name.match(/test/i))
+    )))
     return await fontFamilies
   } catch (err) {
     console.log('failed', err)
@@ -60,7 +62,7 @@ const parseDesignSpaceFile = (fileData, originalQueryMatch) => {
   const file = new Buffer(fileData.content, 'base64').toString('ascii')
   const fileObject = parser.toJson(file, {object: true, coerce: true, arrayNotation: ['instance', 'dimension']})
 
-  const familyName = fileObject.designspace.instances.instance[0].familyName
+  const familyName = fileObject.designspace.instances.instance[0].familyname
 
   const instances = fileObject.designspace.instances.instance.map(instance => {
     const weight = instance.location.dimension.filter(el => el.name.toLowerCase() === "weight")[0].xvalue
@@ -70,7 +72,7 @@ const parseDesignSpaceFile = (fileData, originalQueryMatch) => {
     }
   })
   const obj = {
-    "name": familyName && familyName[1],
+    "name": familyName,
     "url": originalQueryMatch.repository.html_url,
     "interpolations": instances
   }
@@ -111,9 +113,10 @@ const writeToDisk = (data) => {
 }
 
 async function init() {
-  const glyphsFonts      = await getData(glyphsSearchURL)
+  // const glyphsFonts      = await getData(glyphsSearchURL)
   const designSpaceFonts = await getData(designSpaceSearchURL)
 
-  writeToDisk([...glyphsFonts, ...designSpaceFonts])
+  // writeToDisk([...glyphsFonts, ...designSpaceFonts])
+  writeToDisk([...designSpaceFonts])
 }
 init()

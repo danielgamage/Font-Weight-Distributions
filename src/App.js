@@ -57,7 +57,7 @@ class App extends Component {
           {data.map(font => (
             <VictoryGroup
               data={font.interpolations}
-              x="style"
+              x="index"
               y="weight" >
               <VictoryLine
                 interpolation="catmullRom"
