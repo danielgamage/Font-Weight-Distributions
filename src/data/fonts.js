@@ -132,6 +132,22 @@ module.exports = [
 			{
 				"style": "ExtraBold",
 				"weight": "88"
+			},
+			{
+				"style": "familyName",
+				"weight": "0"
+			},
+			{
+				"style": "familyName",
+				"weight": "38"
+			},
+			{
+				"style": "familyName",
+				"weight": "75"
+			},
+			{
+				"style": "familyName",
+				"weight": null
 			}
 		]
 	},
@@ -175,13 +191,324 @@ module.exports = [
 				"weight": "77"
 			},
 			{
+				"style": "Filter",
+				"weight": "77"
+			},
+			{
+				"style": "Filter",
+				"weight": null
+			},
+			{
 				"style": "Bold",
+				"weight": "121"
+			},
+			{
+				"style": "Filter",
 				"weight": "121"
 			},
 			{
 				"style": "Black",
 				"weight": "140"
 			},
+			{
+				"style": "Filter",
+				"weight": "140"
+			}
+		]
+	},
+	{
+		"name": "Glyphs Unit Test Sans",
+		"interpolations": [
+			{
+				"style": "Thin",
+				"weight": "17"
+			},
+			{
+				"style": "\"Extra Light\"",
+				"weight": "30"
+			},
+			{
+				"style": "Light",
+				"weight": "55"
+			},
+			{
+				"style": "Regular",
+				"weight": "90"
+			},
+			{
+				"style": "Medium",
+				"weight": "133"
+			},
+			{
+				"style": "Bold",
+				"weight": "179"
+			},
+			{
+				"style": "Black",
+				"weight": "220"
+			},
+			{
+				"style": "Web",
+				"weight": "75"
+			}
+		]
+	},
+	{
+		"name": null,
+		"interpolations": [
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			},
+			{
+				"style": "\"Decompose Glyphs\"",
+				"weight": null
+			}
+		]
+	},
+	{
+		"name": "Glyphs Unit Test Sans",
+		"interpolations": [
+			{
+				"style": "Thin",
+				"weight": "17"
+			},
+			{
+				"style": "\"Extra Light\"",
+				"weight": "30"
+			},
+			{
+				"style": "Light",
+				"weight": "55"
+			},
+			{
+				"style": "Regular",
+				"weight": "90"
+			},
+			{
+				"style": "Medium",
+				"weight": "133"
+			},
+			{
+				"style": "Bold",
+				"weight": "179"
+			},
+			{
+				"style": "Black",
+				"weight": "220"
+			},
+			{
+				"style": "Web",
+				"weight": "75"
+			}
 		]
 	},
 	{

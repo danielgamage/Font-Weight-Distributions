@@ -1,5 +1,6 @@
 const axios = require('axios')
 const fs = require('fs')
+const ProgressBar = require('progress')
 
 // YOU MUST SUPPLY YOUR OWN TOKEN FILE
 const config = require('./config.js')
@@ -13,12 +14,25 @@ var options = {
 
 const searchURL = 'https://api.github.com/search/code?q=interpolationWeight+extension:glyphs'
 
+const getLink = (header, rel = 'next') => {
+  const replacement = `<(.*?)>(?=; rel="${rel}")`
+  const regex = new RegExp(replacement)
+  const link = header.match(regex) && header.match(regex)[1]
+  return link
+}
+
 async function getGlyphsData() {
   try {
     const searchResults = await axios(searchURL, options)
+    // console.log(getLink(searchResults.headers.link))
+
+    const itemCount = await searchResults.data.items.length
+    const progress = new ProgressBar('Fetching files [:bar] :percent', {total: itemCount})
+
     const fontFamilies = Promise.all(searchResults.data.items.map(async (el) => {
       const file = await axios(el.url, options)
       const fontFamily = parseGlyphsFile(file.data.content)
+      progress.tick()
       return fontFamily
     }))
     console.log(await fontFamilies)
