@@ -30,7 +30,7 @@ module.exports = [
 				"weight": "56"
 			},
 			{
-				"style": "Regular",
+				"style": null,
 				"weight": "79"
 			},
 			{
@@ -56,7 +56,7 @@ module.exports = [
 				"weight": "10"
 			},
 			{
-				"style": "Filter",
+				"style": "\"Hairline Italic\"",
 				"weight": "10"
 			},
 			{
@@ -64,7 +64,7 @@ module.exports = [
 				"weight": "15"
 			},
 			{
-				"style": "Filter",
+				"style": "\"UltraLight Italic\"",
 				"weight": "15"
 			},
 			{
@@ -72,15 +72,15 @@ module.exports = [
 				"weight": "39"
 			},
 			{
-				"style": "Filter",
+				"style": "\"Light Italic\"",
 				"weight": "39"
 			},
 			{
-				"style": "Regular",
+				"style": null,
 				"weight": "56"
 			},
 			{
-				"style": "Filter",
+				"style": null,
 				"weight": "56"
 			},
 			{
@@ -88,11 +88,11 @@ module.exports = [
 				"weight": "77"
 			},
 			{
-				"style": "Filter",
+				"style": "\"Medium Italic\"",
 				"weight": "77"
 			},
 			{
-				"style": "Filter",
+				"style": null,
 				"weight": null
 			},
 			{
@@ -100,15 +100,15 @@ module.exports = [
 				"weight": "121"
 			},
 			{
-				"style": "Filter",
+				"style": "\"Bold Italic\"",
 				"weight": "121"
 			},
 			{
-				"style": "Black",
+				"style": null,
 				"weight": "140"
 			},
 			{
-				"style": "Filter",
+				"style": "\"Black Italic\"",
 				"weight": "140"
 			}
 		]
@@ -118,219 +118,219 @@ module.exports = [
 		"url": "https://github.com/jpt/barlow",
 		"interpolations": [
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "\"Decompose Glyphs\"",
+				"style": null,
 				"weight": null
 			}
 		]
@@ -356,19 +356,19 @@ module.exports = [
 				"weight": "500"
 			},
 			{
-				"style": "Regular",
+				"style": null,
 				"weight": "400"
 			},
 			{
-				"style": "Light",
+				"style": null,
 				"weight": "200"
 			},
 			{
-				"style": "\"Light Extended\"",
+				"style": null,
 				"weight": "200"
 			},
 			{
-				"style": "\"Regular Expanded\"",
+				"style": null,
 				"weight": "400"
 			},
 			{
@@ -388,15 +388,15 @@ module.exports = [
 				"weight": "800"
 			},
 			{
-				"style": "\"Regular SemiExpanded\"",
+				"style": null,
 				"weight": "400"
 			},
 			{
-				"style": "\"Regular SemiCondensed\"",
+				"style": null,
 				"weight": "400"
 			},
 			{
-				"style": "\"Regular UltraExpanded\"",
+				"style": null,
 				"weight": "400"
 			}
 		]
@@ -410,7 +410,7 @@ module.exports = [
 				"weight": "300"
 			},
 			{
-				"style": "Regular",
+				"style": null,
 				"weight": "400"
 			},
 			{
@@ -424,27 +424,27 @@ module.exports = [
 		"url": "https://github.com/iamaaronmartin/federalist",
 		"interpolations": [
 			{
-				"style": "postscriptFontName",
+				"style": "UltraLight",
 				"weight": "40"
 			},
 			{
-				"style": "postscriptFontName",
+				"style": "Light",
 				"weight": "51"
 			},
 			{
-				"style": "postscriptFontName",
+				"style": null,
 				"weight": "66"
 			},
 			{
-				"style": "postscriptFontName",
+				"style": "Medium",
 				"weight": "85"
 			},
 			{
-				"style": "postscriptFontName",
+				"style": "Semibold",
 				"weight": "102"
 			},
 			{
-				"style": "postscriptFontName",
+				"style": "Bold",
 				"weight": "140"
 			}
 		]
@@ -454,40 +454,332 @@ module.exports = [
 		"url": "https://github.com/googlei18n/noto-source",
 		"interpolations": [
 			{
-				"style": "weightClass",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "weightClass",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "weightClass",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "weightClass",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "weightClass",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "weightClass",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "weightClass",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "weightClass",
+				"style": null,
 				"weight": null
 			},
 			{
-				"style": "weightClass",
+				"style": null,
 				"weight": null
+			}
+		]
+	},
+	{
+		"url": "https://github.com/sugarlabs/edit-fonts-activity",
+		"interpolations": [
+			{
+				"style": "TestStyleName",
+				"weight": 0
+			}
+		]
+	},
+	{
+		"url": "https://github.com/LettError/MutatorMath",
+		"interpolations": [
+			{
+				"style": "TestStyleName",
+				"weight": 0.6
+			}
+		]
+	},
+	{
+		"url": "https://github.com/metapolator/mutatormathtools",
+		"interpolations": [
+			{
+				"style": "TestStyleName",
+				"weight": 0.6
+			}
+		]
+	},
+	{
+		"url": "https://github.com/SayCV/tools-FDK",
+		"interpolations": [
+			{
+				"style": "TestStyleName",
+				"weight": 0.6
+			}
+		]
+	},
+	{
+		"url": "https://github.com/alif-type/mada",
+		"interpolations": [
+			{
+				"style": "Regular",
+				"weight": 368
+			},
+			{
+				"style": "SemiBold",
+				"weight": 600
+			},
+			{
+				"style": "Bold",
+				"weight": 824
+			}
+		]
+	},
+	{
+		"url": "https://github.com/scribbletone/i-can-variable-font",
+		"interpolations": [
+			{
+				"style": "Medium",
+				"weight": 0.6
+			}
+		]
+	},
+	{
+		"url": "https://github.com/adobe-fonts/source-serif-pro",
+		"interpolations": [
+			{
+				"style": "ExtraLight",
+				"weight": 0
+			},
+			{
+				"style": "Light",
+				"weight": 408
+			},
+			{
+				"style": "Regular",
+				"weight": 1041
+			},
+			{
+				"style": "Semibold",
+				"weight": 1367
+			},
+			{
+				"style": "Bold",
+				"weight": 1722
+			},
+			{
+				"style": "Black",
+				"weight": 2000
+			}
+		]
+	},
+	{
+		"url": "https://github.com/optospinlab/diamondGDS",
+		"interpolations": [
+			{
+				"style": "Medium",
+				"weight": 0.5
+			}
+		]
+	},
+	{
+		"url": "https://github.com/rezerbit/.dotfiles",
+		"interpolations": [
+			{
+				"style": "ExtraLight",
+				"weight": 0
+			},
+			{
+				"style": "Light",
+				"weight": 100
+			},
+			{
+				"style": "Regular",
+				"weight": 368
+			},
+			{
+				"style": "Medium",
+				"weight": 486
+			},
+			{
+				"style": "Semibold",
+				"weight": 600
+			},
+			{
+				"style": "Bold",
+				"weight": 824
+			},
+			{
+				"style": "Black",
+				"weight": 1000
+			}
+		]
+	},
+	{
+		"url": "https://github.com/googlei18n/fontmake",
+		"interpolations": [
+			{
+				"style": "Regular",
+				"weight": 400
+			}
+		]
+	},
+	{
+		"url": "https://github.com/adobe-fonts/adobe-variable-font-prototype",
+		"interpolations": [
+			{
+				"style": "ExtraLight",
+				"weight": 0
+			},
+			{
+				"style": "Light",
+				"weight": 150
+			},
+			{
+				"style": "Regular",
+				"weight": 394
+			},
+			{
+				"style": "Semibold",
+				"weight": 600
+			},
+			{
+				"style": "Bold",
+				"weight": 824
+			},
+			{
+				"style": "Black",
+				"weight": 1000
+			},
+			{
+				"style": "Black Medium Contrast",
+				"weight": 1000
+			},
+			{
+				"style": "Black High Contrast",
+				"weight": 1000
+			}
+		]
+	},
+	{
+		"url": "https://github.com/adobe-fonts/source-hebrew-sans",
+		"interpolations": [
+			{
+				"style": "ExtraLight",
+				"weight": 0
+			},
+			{
+				"style": "Light",
+				"weight": 100
+			},
+			{
+				"style": "Regular",
+				"weight": 368
+			},
+			{
+				"style": "Semibold",
+				"weight": 600
+			},
+			{
+				"style": "Bold",
+				"weight": 824
+			},
+			{
+				"style": "Black",
+				"weight": 1000
+			}
+		]
+	},
+	{
+		"url": "https://github.com/jonpinhorn/atithi",
+		"interpolations": [
+			{
+				"style": "ExtraLight",
+				"weight": 0
+			},
+			{
+				"style": "Light",
+				"weight": 20
+			},
+			{
+				"style": "Regular",
+				"weight": 40
+			},
+			{
+				"style": "Medium",
+				"weight": 60
+			},
+			{
+				"style": "SemiBold",
+				"weight": 80
+			},
+			{
+				"style": "Bold",
+				"weight": 100
+			}
+		]
+	},
+	{
+		"url": "https://github.com/rosettatype/eczar",
+		"interpolations": [
+			{
+				"style": "ExtraBold",
+				"weight": 100
+			}
+		]
+	},
+	{
+		"url": "https://github.com/shannpersand/cooper-type",
+		"interpolations": [
+			{
+				"style": "x184.72",
+				"weight": 165.966835
+			},
+			{
+				"style": "x1429.26",
+				"weight": 429.260254
+			},
+			{
+				"style": "x1697.73",
+				"weight": 697.72678
+			}
+		]
+	},
+	{
+		"url": "https://github.com/adobe-fonts/source-sans-pro",
+		"interpolations": [
+			{
+				"style": "ExtraLight Italic",
+				"weight": 0
+			},
+			{
+				"style": "Light Italic",
+				"weight": 100
+			},
+			{
+				"style": "Italic",
+				"weight": 368
+			},
+			{
+				"style": "Semibold Italic",
+				"weight": 600
+			},
+			{
+				"style": "Bold Italic",
+				"weight": 824
+			},
+			{
+				"style": "Black Italic",
+				"weight": 1000
 			}
 		]
 	}
