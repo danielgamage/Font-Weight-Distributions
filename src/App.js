@@ -6,9 +6,13 @@ import {
   VictoryGroup,
   VictoryAxis,
   VictoryScatter,
-  VictoryLine,
-  VictoryVoronoiTooltip
+  VictoryLine
 } from 'victory';
+import {
+  Table,
+  Column,
+  Cell
+} from 'fixed-data-table';
 
 console.log(fontData)
 
@@ -37,6 +41,13 @@ const myFonts = [
 
 const data = [...fontData, ...myFonts]
 
+const getColor = (i, arr, value) => {
+  const hue = Math.floor(i / arr.length * 255)
+  const sat = Math.min(value + 50, 100)
+  const hsl = `hsl(${hue}, ${sat}%, ${value}%)`
+  return hsl
+}
+
 class App extends Component {
   render() {
     return (
@@ -45,7 +56,7 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <VictoryChart
-          domainPadding={100}
+          domainPadding={20}
         >
           <VictoryAxis
             tickFormat={(el) => `${el}`}
@@ -54,29 +65,30 @@ class App extends Component {
             dependentAxis
             tickFormat={(el) => `${el}`}
           />
-          {data.map(font => (
+          {data.map((font, i, arr) => (
             <VictoryGroup
               data={font.interpolations}
               x="index"
-              y="weight" >
+              y="weight"
+              >
               <VictoryLine
+                style={{
+                  data: { stroke: getColor(i, arr, 60) },
+                  labels: { fill: '#333' }
+                }}
                 interpolation="catmullRom"
-                label={font.name}
+                label=""
                 />
-              <VictoryScatter />
+              <VictoryScatter
+                style={{ data: {
+                  fill: getColor(i, arr, 45)
+                }}}
+                labels={(data) => (data.style)}
+                />
             </VictoryGroup>
           ))}
         </VictoryChart>
-        <table>
-          {data.map(font => (
-            <tr>
-              <td>{font.name}</td>
-              {font.interpolations.map(interpolation => (
-                <td>{interpolation.weight}</td>
-              ))}
-            </tr>
-          ))}
-        </table>
+
       </div>
     );
   }

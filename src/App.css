@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  max-width: 42rem;
+  max-width: 60rem;
   margin: auto;
 }
 
@@ -16,11 +16,6 @@
   color: white;
 }
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+path {
+  stroke-linecap: round;
 }
