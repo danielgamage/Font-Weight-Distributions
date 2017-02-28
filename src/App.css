@@ -2,6 +2,7 @@
   text-align: center;
   max-width: 60rem;
   margin: auto;
+  padding: 2rem 0;
 }
 
 .App-logo {
@@ -18,4 +19,16 @@
 
 path {
   stroke-linecap: round;
+}
+
+.table {
+  overflow-x: auto;
+  padding: 2rem;
+  text-align: right;
+}
+td {
+  padding: 0 0.5rem;
+}
+td.primary {
+  font-style: italic;
 }

@@ -7,7 +7,8 @@ import {
   VictoryAxis,
   VictoryScatter,
   VictoryLine,
-  VictorySharedEvents
+  VictorySharedEvents,
+  VictoryTheme
 } from 'victory';
 
 console.log(fontData)
@@ -49,6 +50,9 @@ class App extends Component {
       <div className="App">
         <VictoryChart
           domainPadding={20}
+          theme={VictoryTheme.material}
+          width={640}
+          height={360}
         >
           <VictoryAxis
             tickFormat={(el) => `${el}`}
@@ -102,16 +106,21 @@ class App extends Component {
             </VictoryGroup>
           ))}
         </VictoryChart>
-        <table>
-          {fontList.map((font, index, arr) => (
-            <tr>
-              <td>{font.name}</td>
-              {font.interpolations.map(interpolation => (
-                <td>{interpolation.weight}</td>
-              ))}
-            </tr>
-          ))}
-        </table>
+        <div className="table">
+          <table>
+            {fontList.map((font, index, arr) => (
+              <tr>
+                <td
+                  className="primary"
+                  style={{color: getColor(index, arr, 45)}}
+                  >{font.name}</td>
+                {font.interpolations.map(interpolation => (
+                  <td>{interpolation.weight}</td>
+                ))}
+              </tr>
+            ))}
+          </table>
+        </div>
       </div>
     );
   }
