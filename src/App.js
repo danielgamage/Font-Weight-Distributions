@@ -6,13 +6,9 @@ import {
   VictoryGroup,
   VictoryAxis,
   VictoryScatter,
-  VictoryLine
+  VictoryLine,
+  VictorySharedEvents
 } from 'victory';
-import {
-  Table,
-  Column,
-  Cell
-} from 'fixed-data-table';
 
 console.log(fontData)
 
@@ -29,17 +25,10 @@ const myFonts = [
       { style: 'Bold',        weight: 160 },
       { style: 'Black',       weight: 200 }
     ]
-  },
-  {
-    name: "Godia",
-    interpolations: [
-      { style: 'Regular',      weight:  80 },
-      { style: 'Bold',         weight: 200 }
-    ]
   }
 ];
 
-const data = [...fontData, ...myFonts]
+const fontList = [...fontData, ...myFonts]
 
 const getColor = (i, arr, value) => {
   const hue = Math.floor(i / arr.length * 255)
@@ -49,12 +38,15 @@ const getColor = (i, arr, value) => {
 }
 
 class App extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      activeLine: null
+    }
+  }
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React</h2>
-        </div>
         <VictoryChart
           domainPadding={20}
         >
@@ -65,30 +57,61 @@ class App extends Component {
             dependentAxis
             tickFormat={(el) => `${el}`}
           />
-          {data.map((font, i, arr) => (
+          {fontList.map((font, index, arr) => (
             <VictoryGroup
               data={font.interpolations}
               x="index"
               y="weight"
+              style={{
+                data: { opacity: this.state.activeLine === index ? 1 : 0.5 },
+                labels: { display: this.state.activeLine === index ? "block" : "none" }
+              }}
+              events={[
+                {
+                  childName: ["line", "scatter"],
+                  target: "data",
+                  eventHandlers: {
+                    onMouseEnter: () => {
+                      this.setState({ activeLine: index })
+                    },
+                    onMouseLeave: () => {
+                      this.setState({ activeLine: null })
+                    }
+                  }
+                }
+              ]}
               >
               <VictoryLine
+                name="line"
+                font={font}
+                eventKey={index}
                 style={{
-                  data: { stroke: getColor(i, arr, 60) },
-                  labels: { fill: '#333' }
+                  data: { stroke: getColor(index, arr, 60) }
                 }}
                 interpolation="catmullRom"
-                label=""
+                label={font.name}
                 />
               <VictoryScatter
-                style={{ data: {
-                  fill: getColor(i, arr, 45)
-                }}}
+                name="scatter"
+                eventKey={index}
+                style={{
+                  data: { fill: getColor(index, arr, 45) }
+                }}
                 labels={(data) => (data.style)}
                 />
             </VictoryGroup>
           ))}
         </VictoryChart>
-
+        <table>
+          {fontList.map((font, index, arr) => (
+            <tr>
+              <td>{font.name}</td>
+              {font.interpolations.map(interpolation => (
+                <td>{interpolation.weight}</td>
+              ))}
+            </tr>
+          ))}
+        </table>
       </div>
     );
   }
