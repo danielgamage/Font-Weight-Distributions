@@ -1,7 +1,7 @@
 # Font Weight Distributions
 
 ## Building Data
-if you'd like to fetch a new dataset, you must have a `config.js` file in the root. It should have a structure like this:
+if you'd like to fetch a new dataset, you must have a `config.js` file in the `scripts/` folder next to `getData.js`. It should have a structure like this:
 
 ```
 module.exports = {

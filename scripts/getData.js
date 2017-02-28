@@ -2,8 +2,8 @@ const util = require('util')
 const axios = require('axios')
 const fs = require('fs')
 const ProgressBar = require('progress')
-const blacklist = require('./src/data/blacklist.js')
-const removeDuplicates = require('./src/utils/removeDuplicates.js')
+const blacklist = require('../src/data/blacklist.js')
+const removeDuplicates = require('../src/utils/removeDuplicates.js')
 const parser = require('xml2json')
 
 // YOU MUST SUPPLY YOUR OWN TOKEN FILE
