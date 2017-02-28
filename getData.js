@@ -50,7 +50,11 @@ async function getData(url) {
       console.log(await fontFamily)
       return await fontFamily
     })).then(result => result.filter((el) => (
+      // remove test fonts
       !(el.name.match(/test/i))
+    )).filter(el => (
+      // remove fonts with only one interpolation
+      el.interpolations.length > 1
     )))
     return await fontFamilies
   } catch (err) {
