@@ -36,3 +36,7 @@ td {
 td.primary {
   font-style: italic;
 }
+.dot {
+  fill: white;
+  stroke-width: 2px;
+}

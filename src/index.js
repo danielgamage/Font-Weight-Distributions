@@ -37,8 +37,8 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50},
 var parseTime = d3.timeParse("%d-%b-%y");
 
 // set the ranges
-var x = d3.scaleOrdinal()
-        .domain(['Thin', 'ExtraLight', 'Light', 'Book', 'Regular', 'Medium', 'Bold', 'ExtraBold', 'Black'])
+var x = d3.scaleLinear()
+        .domain([...Array(9).keys()])
         .range([...Array(9).keys()].map((el, i, arr) => width / arr.length * i))
 var y = d3.scaleLinear()
         .domain([0, 2000])
@@ -63,15 +63,32 @@ const drawGraph = (data) => {
           return x(el.interpolations.indexOf(d))
         })
         .y((d) => {
+          console.log(d)
           return y(d.weight)
         })
     // Add the valueline path.
     svg.append("path")
         .data([el.interpolations])
+        .attr("d", valueline)
         .attr("class", "line")
         .attr("fill", "none")
         .attr("stroke", getColor(i, arr, 80))
-        .attr("d", valueline);
+        .attr("stroke-width", "2px")
+        .attr("vector-effect", "non-scaling-stroke")
+
+    el.interpolations.filter(function(d) { return d; })
+      .map((interpolation, interpolationIndex) => {
+        svg.selectAll("dot")
+            .data([interpolation])
+          .enter().append("circle")
+            .attr("class", "dot")
+            .attr("stroke", getColor(i, arr, 80))
+            .attr("cx", valueline.x())
+            .attr("cy", valueline.y())
+            .attr("r", 3.5)
+            .exit()
+      })
+
   })
 
 
