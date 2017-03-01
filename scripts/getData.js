@@ -107,7 +107,7 @@ const parseGlyphsFile = (fileData, originalQueryMatch) => {
 const writeToDisk = (data) => {
   const content = `module.exports = ${JSON.stringify(data, null, '\t')}`
   console.log("Writing data to disk...")
-  fs.writeFile("./src/data/fonts.js", content, function(err) {
+  fs.writeFile("../src/data/fonts.js", content, function(err) {
     if(err) {
       return console.log(err);
     }
