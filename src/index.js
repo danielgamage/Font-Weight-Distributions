@@ -29,7 +29,7 @@ const getColor = (i, arr, value) => {
 }
 
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
+var margin = {top: 20, right: 0, bottom: 30, left: 60},
     width = 480 - margin.left - margin.right,
     height = 240 - margin.top - margin.bottom
 
@@ -47,12 +47,14 @@ var y = d3.scaleLinear()
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
-const lineChart = d3.select("#root").append("svg")
+const lineChart = d3.select(".chart--line").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+const table = d3.select(".table table")
 
 const drawGraph = (data) => {
   data.map((el, i, arr) => {
@@ -70,45 +72,51 @@ const drawGraph = (data) => {
         .data([el.interpolations])
         .attr("d", valueline)
         .attr("class", "line")
-        .attr("stroke", getColor(i, arr, 80))
+        .attr("stroke", getColor(i, arr, 70))
+        el.interpolations.filter(function(d) { return d; })
+          .map((interpolation, interpolationIndex) => {
+            lineChart.selectAll("dot")
+                .data([interpolation])
+              .enter().append("circle")
+                .attr("class", "dot")
+                .attr("stroke", getColor(i, arr, 70))
+                .attr("cx", valueline.x())
+                .attr("cy", valueline.y())
+                .attr("r", 2)
+                .exit()
+          })
 
-    const pieChart = d3.select("#root").append("svg")
+    const row = table.append("tr")
+    row.data(el)
+
+    const pieChart = row.append("td").append("svg")
         .attr("class", "pie")
         .attr("width", 128)
         .attr("height", 128)
         .attr("viewBox", `0 0 128 128`)
-    const arcs =  d3.pie()(el.interpolations.map(interpolation => interpolation.weight))
+    const arcs =  d3.pie()([...el.interpolations].map(interpolation => interpolation.weight))
     arcs.map((arc, arcIndex) => {
       const arcRendered = d3.arc()
-        .innerRadius(42)
+        .innerRadius(48)
         .outerRadius(64)
         .cornerRadius(2)
-        .padAngle(.02)
+        .padAngle(.03)
         .startAngle(arc.startAngle)
         .endAngle(arc.endAngle);
       pieChart.append("path")
           .attr("d", arcRendered)
           .attr("class", "arc")
           .attr("transform", "translate(64, 64)")
-          .attr("fill", getColor(i, arr, 60 + arcIndex * 5))
+          .attr("fill", getColor(i, arcs, 90 - arcIndex * 40 / arcs.length))
+    })
+    row.append("td")
+      .text(el.name)
+    el.interpolations.map(interpolation => {
+      row.append("td")
+        .text(interpolation.weight)
     })
 
-
-    el.interpolations.filter(function(d) { return d; })
-      .map((interpolation, interpolationIndex) => {
-        lineChart.selectAll("dot")
-            .data([interpolation])
-          .enter().append("circle")
-            .attr("class", "dot")
-            .attr("stroke", getColor(i, arr, 80))
-            .attr("cx", valueline.x())
-            .attr("cy", valueline.y())
-            .attr("r", 3.5)
-            .exit()
-      })
-
   })
-
 
   // Add the X Axis
   lineChart.append("g")
