@@ -117,17 +117,45 @@ const drawGraph = (data) => {
     })
 
   })
-
-  // Add the X Axis
-  lineChart.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).ticks(5));
-
-  // Add the Y Axis
-  lineChart.append("g")
-      .call(d3.axisLeft(y).ticks(10));
-
 }
+
+// gridlines in x axis function
+function make_x_gridlines() {
+  return d3.axisBottom(x)
+    .ticks(5)
+}
+
+// gridlines in y axis function
+function make_y_gridlines() {
+  return d3.axisLeft(y)
+    .ticks(5)
+}
+
+// add the X gridlines
+lineChart.append("g")
+    .attr("class", "grid")
+    .attr("transform", "translate(0," + height + ")")
+    .call(make_x_gridlines()
+        .tickSize(-height)
+        .tickFormat("")
+    )
+
+// add the Y gridlines
+lineChart.append("g")
+    .attr("class", "grid")
+    .call(make_y_gridlines()
+        .tickSize(-width)
+        .tickFormat("")
+    )
+
+// Add the X Axis
+lineChart.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x).ticks(5));
+
+// Add the Y Axis
+lineChart.append("g")
+    .call(d3.axisLeft(y).ticks(5));
 
 //drawGraph
 drawGraph(data);

@@ -31,6 +31,21 @@ svg {
   width: 5rem;
   height: 5rem;
 }
+
+.grid .tick line {
+  stroke: #dfdfef;
+  stroke-dasharray: 8, 8;
+}
+.grid .domain {
+  display: none;
+}
+.tick line {
+  stroke: #aab;
+}
+.domain {
+  stroke: #aab;
+}
+
 .line {
   stroke-linecap: round;
   fill: none;
