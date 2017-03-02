@@ -47,7 +47,7 @@ var y = d3.scaleLinear()
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
-var svg = d3.select("#root").append("svg")
+const lineChart = d3.select("#root").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
@@ -66,15 +66,37 @@ const drawGraph = (data) => {
           return y(d.weight)
         })
     // Add the valueline path.
-    svg.append("path")
+    lineChart.append("path")
         .data([el.interpolations])
         .attr("d", valueline)
         .attr("class", "line")
         .attr("stroke", getColor(i, arr, 80))
 
+    const pieChart = d3.select("#root").append("svg")
+        .attr("class", "pie")
+        .attr("width", 128)
+        .attr("height", 128)
+        .attr("viewBox", `0 0 128 128`)
+    const arcs =  d3.pie()(el.interpolations.map(interpolation => interpolation.weight))
+    arcs.map((arc, arcIndex) => {
+      const arcRendered = d3.arc()
+        .innerRadius(42)
+        .outerRadius(64)
+        .cornerRadius(2)
+        .padAngle(.02)
+        .startAngle(arc.startAngle)
+        .endAngle(arc.endAngle);
+      pieChart.append("path")
+          .attr("d", arcRendered)
+          .attr("class", "arc")
+          .attr("transform", "translate(64, 64)")
+          .attr("fill", getColor(i, arr, 60 + arcIndex * 5))
+    })
+
+
     el.interpolations.filter(function(d) { return d; })
       .map((interpolation, interpolationIndex) => {
-        svg.selectAll("dot")
+        lineChart.selectAll("dot")
             .data([interpolation])
           .enter().append("circle")
             .attr("class", "dot")
@@ -89,12 +111,12 @@ const drawGraph = (data) => {
 
 
   // Add the X Axis
-  svg.append("g")
+  lineChart.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x).ticks(5));
 
   // Add the Y Axis
-  svg.append("g")
+  lineChart.append("g")
       .call(d3.axisLeft(y).ticks(10));
 
 }

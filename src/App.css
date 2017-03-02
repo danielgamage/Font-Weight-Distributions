@@ -21,6 +21,10 @@ svg {
   width: 100%;
   height: 100%;
 }
+.pie {
+  max-width: 4rem;
+  max-height: 4rem;
+}
 .line {
   stroke-linecap: round;
   fill: none;
