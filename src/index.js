@@ -29,7 +29,7 @@ const getColor = (i, arr, value) => {
 }
 
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 0, bottom: 30, left: 60},
+var margin = {top: 20, right: 0, bottom: 50, left: 60},
     width = 480 - margin.left - margin.right,
     height = 240 - margin.top - margin.bottom
 
@@ -151,11 +151,22 @@ lineChart.append("g")
 // Add the X Axis
 lineChart.append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(5));
+    .call(d3.axisBottom(x).ticks(5).tickSize(8))
+lineChart.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x).ticks(10).tickSize(4).tickFormat(""))
+lineChart.append("text")
+    .text("Steps")
+    .style("text-anchor", "middle")
+    .attr("font-size", "10")
+    .attr("transform", "translate(" + width / 2 + "," + (height + margin.top + 10) + ")")
+
 
 // Add the Y Axis
 lineChart.append("g")
-    .call(d3.axisLeft(y).ticks(5));
+    .call(d3.axisLeft(y).ticks(5).tickSize(8));
+lineChart.append("g")
+    .call(d3.axisLeft(y).ticks(15).tickSize(4).tickFormat(""));
 
 //drawGraph
 drawGraph(data);
