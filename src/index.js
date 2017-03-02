@@ -31,7 +31,7 @@ const getColor = (i, arr, value) => {
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 480 - margin.left - margin.right,
-    height = 360 - margin.top - margin.bottom
+    height = 240 - margin.top - margin.bottom
 
 // parse the date / time
 var parseTime = d3.timeParse("%d-%b-%y");
@@ -58,12 +58,11 @@ const drawGraph = (data) => {
   data.map((el, i, arr) => {
     // define the line
     const valueline = d3.line()
-        .curve(d3.curveCatmullRomOpen)
+        .curve(d3.curveCatmullRom)
         .x((d) => {
           return x(el.interpolations.indexOf(d))
         })
         .y((d) => {
-          console.log(d)
           return y(d.weight)
         })
     // Add the valueline path.
@@ -71,10 +70,7 @@ const drawGraph = (data) => {
         .data([el.interpolations])
         .attr("d", valueline)
         .attr("class", "line")
-        .attr("fill", "none")
         .attr("stroke", getColor(i, arr, 80))
-        .attr("stroke-width", "2px")
-        .attr("vector-effect", "non-scaling-stroke")
 
     el.interpolations.filter(function(d) { return d; })
       .map((interpolation, interpolationIndex) => {
@@ -99,7 +95,7 @@ const drawGraph = (data) => {
 
   // Add the Y Axis
   svg.append("g")
-      .call(d3.axisLeft(y).ticks(8));
+      .call(d3.axisLeft(y).ticks(10));
 
 }
 
