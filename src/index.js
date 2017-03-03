@@ -1,5 +1,4 @@
 import './index.css'
-import './App.css'
 import fontData from './data/fonts.js'
 import * as d3 from "d3"
 
@@ -19,10 +18,10 @@ const myFonts = [
   }
 ]
 
-const data = [...fontData, ...myFonts]
+const fonts = [...fontData, ...myFonts]
 
-const getColor = (i, arr, value) => {
-  const hue = Math.floor(i / arr.length * 255)
+const getColor = (i, length, value) => {
+  const hue = Math.floor(i / length * 255)
   const sat = Math.min(value + 50, 100)
   const hsl = `hsl(${hue}, ${sat}%, ${value}%)`
   return hsl
@@ -57,35 +56,36 @@ const lineChart = d3.select(".chart--line").append("svg")
 const table = d3.select(".table table")
 
 const drawGraph = (data) => {
-  data.map((el, i, arr) => {
-    // define the line
-    const valueline = d3.line()
-        .curve(d3.curveCatmullRom)
-        .x((d) => {
-          return x(el.interpolations.indexOf(d))
-        })
-        .y((d) => {
-          return y(d.weight)
-        })
-    // Add the valueline path.
-    lineChart.append("path")
-        .data([el.interpolations])
-        .attr("d", valueline)
-        .attr("class", "line")
-        .attr("stroke", getColor(i, arr, 70))
-        el.interpolations.filter(function(d) { return d; })
-          .map((interpolation, interpolationIndex) => {
-            lineChart.selectAll("dot")
-                .data([interpolation])
-              .enter().append("circle")
-                .attr("class", "dot")
-                .attr("stroke", getColor(i, arr, 70))
-                .attr("cx", valueline.x())
-                .attr("cy", valueline.y())
-                .attr("r", 2)
-                .exit()
-          })
+  var family = lineChart.selectAll("g.family")
+      .data(fonts)
+    .enter().append("g")
+      .attr("class", "family")
+      .attr("stroke", (d, i) => getColor(i, fonts.length, 70))
 
+  // define the line
+  const valueline = d3.line()
+      .curve(d3.curveCatmullRom)
+      .x((d, i) => {
+        return x(i)
+      })
+      .y((d) => {
+        return y(d.weight)
+      })
+
+  // Add the valueline path.
+  family.append("path")
+      .attr("d", (d) => valueline(d.interpolations))
+      .attr("class", "line")
+  family.selectAll("dot")
+      .data((d) => d.interpolations)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("cx", valueline.x())
+      .attr("cy", valueline.y())
+      .attr("r", 2)
+      .exit()
+
+  data.map((el, i, arr) => {
     const row = table.append("tr")
     row.data(el)
 
@@ -107,7 +107,7 @@ const drawGraph = (data) => {
           .attr("d", arcRendered)
           .attr("class", "arc")
           .attr("transform", "translate(64, 64)")
-          .attr("fill", getColor(i, arcs, 90 - arcIndex * 40 / arcs.length))
+          .attr("fill", getColor(i, arcs.length, 90 - arcIndex * 40 / arcs.length))
     })
     row.append("td")
       .text(el.name)
@@ -169,4 +169,4 @@ lineChart.append("g")
     .call(d3.axisLeft(y).ticks(15).tickSize(4).tickFormat(""));
 
 //drawGraph
-drawGraph(data);
+drawGraph(fonts);
