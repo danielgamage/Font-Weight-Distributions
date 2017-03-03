@@ -47,90 +47,21 @@ var y = d3.scaleLinear()
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
 const lineChart = d3.select(".chart--line").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width",  width  + margin.left + margin.right)
+    .attr("height", height + margin.top  + margin.bottom)
     .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-const table = d3.select(".table table")
-
-const drawGraph = (data) => {
-  var family = lineChart.selectAll("g.family")
-      .data(fonts)
-    .enter().append("g")
-      .attr("class", "family")
-      .attr("stroke", (d, i) => getColor(i, fonts.length, 70))
-
-  // define the line
-  const valueline = d3.line()
-      .curve(d3.curveCatmullRom)
-      .x((d, i) => {
-        return x(i)
-      })
-      .y((d) => {
-        return y(d.weight)
-      })
-
-  // Add the valueline path.
-  family.append("path")
-      .attr("d", (d) => valueline(d.interpolations))
-      .attr("class", "line")
-  family.selectAll("dot")
-      .data((d) => d.interpolations)
-    .enter().append("circle")
-      .attr("class", "dot")
-      .attr("cx", valueline.x())
-      .attr("cy", valueline.y())
-      .attr("r", 2)
-      .exit()
-
-  data.map((el, i, arr) => {
-    const row = table.append("tr")
-    row.data(el)
-
-    const pieChart = row.append("td").append("svg")
-        .attr("class", "pie")
-        .attr("width", 128)
-        .attr("height", 128)
-        .attr("viewBox", `0 0 128 128`)
-    const arcs =  d3.pie()([...el.interpolations].map(interpolation => interpolation.weight))
-    arcs.map((arc, arcIndex) => {
-      const arcRendered = d3.arc()
-        .innerRadius(48)
-        .outerRadius(64)
-        .cornerRadius(2)
-        .padAngle(.03)
-        .startAngle(arc.startAngle)
-        .endAngle(arc.endAngle);
-      pieChart.append("path")
-          .attr("d", arcRendered)
-          .attr("class", "arc")
-          .attr("transform", "translate(64, 64)")
-          .attr("fill", getColor(i, arcs.length, 90 - arcIndex * 40 / arcs.length))
-    })
-    row.append("td")
-      .text(el.name)
-    el.interpolations.map(interpolation => {
-      row.append("td")
-        .text(interpolation.weight)
-    })
-
-  })
-}
-
 // gridlines in x axis function
 function make_x_gridlines() {
   return d3.axisBottom(x)
     .ticks(5)
 }
-
 // gridlines in y axis function
 function make_y_gridlines() {
   return d3.axisLeft(y)
     .ticks(5)
 }
-
 // add the X gridlines
 lineChart.append("g")
     .attr("class", "grid")
@@ -139,7 +70,6 @@ lineChart.append("g")
         .tickSize(-height)
         .tickFormat("")
     )
-
 // add the Y gridlines
 lineChart.append("g")
     .attr("class", "grid")
@@ -147,7 +77,6 @@ lineChart.append("g")
         .tickSize(-width)
         .tickFormat("")
     )
-
 // Add the X Axis
 lineChart.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -160,13 +89,83 @@ lineChart.append("text")
     .style("text-anchor", "middle")
     .attr("font-size", "10")
     .attr("transform", "translate(" + width / 2 + "," + (height + margin.top + 10) + ")")
-
-
 // Add the Y Axis
 lineChart.append("g")
     .call(d3.axisLeft(y).ticks(5).tickSize(8));
 lineChart.append("g")
     .call(d3.axisLeft(y).ticks(15).tickSize(4).tickFormat(""));
 
-//drawGraph
-drawGraph(fonts);
+var family = lineChart.selectAll("g.family")
+    .data(fonts)
+  .enter().append("g")
+    .attr("class", "family")
+    .attr("stroke", (d, i) => getColor(i, fonts.length, 70))
+
+// define the line
+const valueline = d3.line()
+    .curve(d3.curveCatmullRom)
+    .x((d, i) => {
+      return x(i)
+    })
+    .y((d) => {
+      return y(d.weight)
+    })
+
+// Add the valueline path.
+family.append("path")
+    .attr("d", (d) => valueline(d.interpolations))
+    .attr("class", "line")
+family.selectAll(".dot")
+    .data((d) => d.interpolations)
+  .enter().append("circle")
+    .attr("class", "dot")
+    .attr("cx", valueline.x())
+    .attr("cy", valueline.y())
+    .attr("r", 2)
+    .exit()
+
+const table = d3.select(".table table")
+
+const handleMouseOver = (font, value) => {
+  d3.select(`.pie.${font.name}`)
+    .append("text")
+    .text(value)
+    .attr("transform", "translate(64, 64)")
+    .attr("class", "text")
+}
+const handleMouseOut = (font, value) => {
+  d3.select(`.pie.${font.name}`)
+    .select("text")
+    .remove()
+}
+
+fonts.map((el, i, arr) => {
+  const row = table.append("tr")
+  row.data(el)
+
+  const pieChart = row.append("td").append("svg")
+      .attr("class", `pie ${el.name}`)
+      .attr("width",  128)
+      .attr("height", 128)
+      .attr("viewBox", `0 0 128 128`)
+  const arcs =  d3.pie()([...el.interpolations].map(interpolation => interpolation.weight))
+  arcs.map((arc, arcIndex) => {
+    const arcRendered = d3.arc()
+      .innerRadius(48)
+      .outerRadius(64)
+      .cornerRadius(2)
+      .padAngle(.03)
+      .startAngle(arc.startAngle)
+      .endAngle(arc.endAngle)
+
+    pieChart.append("path")
+        .attr("d", arcRendered)
+        .attr("class", "arc")
+        .attr("transform", "translate(64, 64)")
+        .attr("fill", getColor(i, arcs.length, 90 - arcIndex * 40 / arcs.length))
+
+  })
+  row.append("td")
+    .text(el.name)
+
+})

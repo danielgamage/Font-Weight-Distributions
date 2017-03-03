@@ -64,6 +64,9 @@ svg {
   stroke-width: 2px;
   vector-effect: non-scaling-stroke;
 }
+.pie .text {
+  text-anchor: middle;
+}
 
 .table {
   overflow-x: auto;
