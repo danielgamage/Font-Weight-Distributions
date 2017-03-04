@@ -20,7 +20,7 @@ const myFonts = [
 ]
 
 const springSystem = new rebound.SpringSystem();
-const springConfig = [40, 9] // tension, friction
+const springConfig = [60, 10] // tension, friction
 const scrollSpring = springSystem.createSpring(...springConfig);
 
 const fonts = [...fontData, ...myFonts]
@@ -139,7 +139,7 @@ family.selectAll(".dot")
     .attr("class", "dot")
     .attr("cx", valueline.x())
     .attr("cy", valueline.y())
-    .attr("r", 2)
+    .attr("r", 3)
     .exit()
 
 const table = d3.select(".table")
