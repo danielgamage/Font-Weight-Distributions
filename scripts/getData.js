@@ -16,8 +16,8 @@ var options = {
   }
 }
 
-const glyphsSearchURL      = 'https://api.github.com/search/code?q=interpolationWeight+extension:glyphs'
-const designSpaceSearchURL = 'https://api.github.com/search/code?q=weight+extension:designspace'
+const glyphsSearchURL    = 'https://api.github.com/search/code?q=interpolationWeight+extension:glyphs'
+let url = 'https://api.github.com/search/code?q=weight+extension:designspace'
 
 const getLink = (header, rel = 'next') => {
   const replacement = `<(.*?)>(?=; rel="${rel}")`
@@ -28,35 +28,49 @@ const getLink = (header, rel = 'next') => {
 
 async function getData(url) {
   try {
-    const searchResults = await axios(url, options)
-    // console.log(getLink(searchResults.headers.link))
+    let families = []
+    let page = 1
+    while (url) {
+      console.log(`Working on page ${page}...`)
+      const searchResults = await axios(url, options)
+      url = getLink(searchResults.headers.link)
 
-    const dedupedItems = removeDuplicates(searchResults.data.items, 'repository.full_name')
-    console.log(`Deduped ${searchResults.data.items.length - dedupedItems.length} items`)
+      const dedupedItems = removeDuplicates(searchResults.data.items, 'repository.full_name')
+      console.log(`Deduped ${searchResults.data.items.length - dedupedItems.length} items`)
 
-    const filteredItems = dedupedItems.filter(el => (
-      blacklist.indexOf(el.repository.full_name) === -1
-    ))
-    console.log(`Filtered out ${dedupedItems.length - filteredItems.length} blacklisted items`)
+      const filteredItems = dedupedItems.filter(el => (
+        blacklist.indexOf(el.repository.full_name) === -1
+      ))
+      console.log(`Filtered out ${dedupedItems.length - filteredItems.length} blacklisted items`)
 
-    const progress = new ProgressBar('Fetching files [:bar] :percent \n', {total: dedupedItems.length})
+      const progress = new ProgressBar('Fetching files [:bar] :percent \n', {total: dedupedItems.length})
 
-    const fontFamilies = Promise.all(filteredItems.map(async (el) => {
-      const file = await axios(el.url, options)
-      const fontFamily = (url === glyphsSearchURL) ? parseGlyphsFile(file.data, el) : parseDesignSpaceFile(file.data, el)
+      const familiesPage = Promise.all(filteredItems.map(async (el) => {
+        const file = await axios(el.url, options)
+        const fontFamily = (url === glyphsSearchURL) ? parseGlyphsFile(file.data, el) : parseDesignSpaceFile(file.data, el)
 
-      progress.tick()
+        progress.tick()
 
-      console.log(await fontFamily)
-      return await fontFamily
-    })).then(result => result.filter((el) => (
-      // remove test fonts
-      !(el.name.match(/test/i))
-    )).filter(el => (
-      // remove fonts with only one interpolation
-      el.interpolations.length > 1
-    )))
-    return await fontFamilies
+        console.log(await fontFamily)
+        return await fontFamily
+      })).then(result => result.filter((el) => (
+        // remove nulls
+        el
+      )).filter((el) => (
+        // remove test fonts
+        !(el.name.match(/test/i))
+      )).filter(el => (
+        // remove fonts with only one interpolation
+        el.interpolations.length > 1
+      )))
+      families.push(await familiesPage)
+      page++
+    }
+    // flatten pages
+    return families.reduce(
+      ( acc, cur ) => acc.concat(cur),
+      []
+    );
   } catch (err) {
     console.log('failed', err)
   }
@@ -66,21 +80,26 @@ const parseDesignSpaceFile = (fileData, originalQueryMatch) => {
   const file = new Buffer(fileData.content, 'base64').toString('ascii')
   const fileObject = parser.toJson(file, {object: true, coerce: true, arrayNotation: ['instance', 'dimension']})
 
-  const familyName = fileObject.designspace.instances.instance[0].familyname
+  const instances = fileObject.designspace.instances.instance
+  if (instances && instances.length > 1) {
+    const familyName = instances[0].familyname
 
-  const instances = fileObject.designspace.instances.instance.map(instance => {
-    const weight = instance.location.dimension.filter(el => el.name.toLowerCase() === "weight")[0].xvalue
-    return {
-      "style": instance.stylename,
-      "weight": weight
+    const interpolations = instances.map(instance => {
+      const weight = instance.location.dimension.filter(el => el.name.toLowerCase() === "weight")[0].xvalue
+      return {
+        "style": instance.stylename,
+        "weight": weight
+      }
+    })
+    const obj = {
+      "name": familyName,
+      "url": originalQueryMatch.repository.html_url,
+      "interpolations": interpolations
     }
-  })
-  const obj = {
-    "name": familyName,
-    "url": originalQueryMatch.repository.html_url,
-    "interpolations": instances
+    return obj
+  } else {
+    return null
   }
-  return obj
 }
 
 const parseGlyphsFile = (fileData, originalQueryMatch) => {
@@ -107,7 +126,7 @@ const parseGlyphsFile = (fileData, originalQueryMatch) => {
 const writeToDisk = (data) => {
   const content = `module.exports = ${JSON.stringify(data, null, '\t')}`
   console.log("Writing data to disk...")
-  fs.writeFile("../src/data/fonts.js", content, function(err) {
+  fs.writeFile(`${__dirname}/../src/data/fonts.js`, content, function(err) {
     if(err) {
       return console.log(err);
     }
@@ -118,7 +137,7 @@ const writeToDisk = (data) => {
 
 async function init() {
   // const glyphsFonts      = await getData(glyphsSearchURL)
-  const designSpaceFonts = await getData(designSpaceSearchURL)
+  const designSpaceFonts = await getData(url)
 
   // writeToDisk([...glyphsFonts, ...designSpaceFonts])
   writeToDisk([...designSpaceFonts])
