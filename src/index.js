@@ -45,7 +45,7 @@ var x = d3.scaleLinear()
         .domain([...Array(9).keys()])
         .range([...Array(9).keys()].map((el, i, arr) => width / arr.length * i))
 var y = d3.scaleLinear()
-        .domain([0, 2000])
+        .domain([0, 1000])
         .range([height, 0])
 
 // append the svg obgect to the body of the page
@@ -213,14 +213,20 @@ const initSlideshow = () => {
   }})
 }
 const handleScroll = () => {
+  const currScrollTop = container.scrollTop
   const maxScrollTop = container.scrollHeight - container.clientHeight
-  const prev = (container.scrollTop === 0)
-  const next = (container.scrollTop === maxScrollTop)
+  const prev = (currScrollTop === 0)
+  const next = (currScrollTop === maxScrollTop)
   document.querySelector(`.pager[data-dir="prev"]`).disabled = prev
   document.querySelector(`.pager[data-dir="next"]`).disabled = next
   if (springSystem._activeSprings.indexOf(scrollSpring) === -1) {
     scrollSpring.setCurrentValue(container.scrollTop)
   }
+  rows.map((row, i) => {
+    const transformAmount = Math.min(Math.abs((currScrollTop - row.offsetTop) / 1000), 1) * -1 + 1
+    row.style.opacity   = transformAmount ** 100
+    row.style.transform = `scale(${transformAmount})`
+  })
 }
 const scrollThumbnails = (e) => {
   const direction = e.target.getAttribute('data-dir') === `next` ? 1 : -1

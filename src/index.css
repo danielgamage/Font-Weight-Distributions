@@ -43,7 +43,7 @@ svg {
 }
 
 .grid .tick line {
-  stroke: #dfdfef;
+  stroke: #e6e6f6;
   stroke-dasharray: 8, 8;
 }
 .grid .domain {
@@ -87,6 +87,7 @@ svg {
   left: 0;
   right: 0;
   height: 1rem;
+  z-index: 5
 }
 .table-container::before {
   top: 0;
