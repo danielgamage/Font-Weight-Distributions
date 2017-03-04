@@ -87,7 +87,7 @@ svg {
   left: 0;
   right: 0;
   height: 1rem;
-  z-index: 5
+  z-index: 5;
 }
 .table-container::before {
   top: 0;
