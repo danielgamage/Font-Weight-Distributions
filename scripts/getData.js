@@ -49,6 +49,7 @@ async function getData(url) {
         const file = await axios(el.url, options)
         const fontFamily = (url === glyphsSearchURL) ? parseGlyphsFile(file.data, el) : parseDesignSpaceFile(file.data, el)
 
+        // update progress bar
         progress.tick()
 
         console.log(await fontFamily)
@@ -67,10 +68,9 @@ async function getData(url) {
       page++
     }
     // flatten pages
-    return families.reduce(
-      ( acc, cur ) => acc.concat(cur),
-      []
-    );
+    const familiesFlattened = families.reduce( ( acc, cur ) => acc.concat(cur), [] )
+    // dedupe font families one last time
+    return removeDuplicates(familiesFlattened, 'name')
   } catch (err) {
     console.log('failed', err)
   }
@@ -94,7 +94,7 @@ const parseDesignSpaceFile = (fileData, originalQueryMatch) => {
     const obj = {
       "name": familyName,
       "url": originalQueryMatch.repository.html_url,
-      "interpolations": interpolations
+      "interpolations": removeDuplicates(interpolations, "weight")
     }
     return obj
   } else {
@@ -118,7 +118,7 @@ const parseGlyphsFile = (fileData, originalQueryMatch) => {
   const obj = {
     "name": familyName && familyName[1],
     "url": originalQueryMatch.repository.html_url,
-    "interpolations": instances
+    "interpolations": removeDuplicates(instances, "weight")
   }
   return obj
 }
