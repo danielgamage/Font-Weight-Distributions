@@ -10,7 +10,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Fira Mono', monospace;
 }
 .App {
   text-align: center;
@@ -76,6 +76,7 @@ svg {
 
 .table-container{
   position: relative;
+  display: flex;
 }
 .table-container::before,
 .table-container::after {
@@ -93,11 +94,17 @@ svg {
   bottom: 0;
   background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0))
 }
+.controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .table {
   overflow: auto;
   scroll-snap-type: mandatory;
   scroll-snap-type: y mandatory;
   height: 7rem;
+  flex: 1;
   text-align: left;
 }
 .row {

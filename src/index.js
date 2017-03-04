@@ -1,6 +1,7 @@
 import './index.css'
 import fontData from './data/fonts.js'
 import * as d3 from "d3"
+import rebound from "rebound"
 
 const myFonts = [
   {
@@ -17,6 +18,10 @@ const myFonts = [
     ]
   }
 ]
+
+const springSystem = new rebound.SpringSystem();
+const springConfig = [40, 9] // tension, friction
+const scrollSpring = springSystem.createSpring(...springConfig);
 
 const fonts = [...fontData, ...myFonts]
 
@@ -183,3 +188,44 @@ fonts.map((el, i, arr) => {
     .text(el.name)
 
 })
+
+let rows
+let container
+const initSlideshow = () => {
+  // add some html for controls
+  container = document.querySelector('.table')
+  container.addEventListener('scroll', handleScroll)
+
+  ;[...document.querySelectorAll(`.pager`)].map(el => {
+    el.addEventListener(`click`, (e) => {
+      const val = scrollThumbnails(e)
+      scrollSpring.setEndValue(val)
+    })
+  })
+
+  rows = [...document.querySelectorAll(`.row`)]
+
+  handleScroll()
+  window.onload = () => { handleScroll() }
+
+  scrollSpring.addListener({ onSpringUpdate: function(scrollSpring) {
+    container.scrollTop = scrollSpring.getCurrentValue()
+  }})
+}
+const handleScroll = () => {
+  const maxScrollTop = container.scrollHeight - container.clientHeight
+  const prev = (container.scrollTop === 0)
+  const next = (container.scrollTop === maxScrollTop)
+  document.querySelector(`.pager[data-dir="prev"]`).disabled = prev
+  document.querySelector(`.pager[data-dir="next"]`).disabled = next
+  if (springSystem._activeSprings.indexOf(scrollSpring) === -1) {
+    scrollSpring.setCurrentValue(container.scrollTop)
+  }
+}
+const scrollThumbnails = (e) => {
+  const direction = e.target.getAttribute('data-dir') === `next` ? 1 : -1
+  const distance = (rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top)
+  return (container.scrollTop + distance * direction)
+}
+
+initSlideshow()
