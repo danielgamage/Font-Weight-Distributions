@@ -28,7 +28,7 @@ const getColor = (i, length, value) => {
 }
 
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 0, bottom: 50, left: 60},
+var margin = {top: 20, right: 0, bottom: 50, left: 40},
     width = 480 - margin.left - margin.right,
     height = 240 - margin.top - margin.bottom
 
@@ -88,18 +88,31 @@ lineChart.append("text")
     .text("Steps")
     .style("text-anchor", "middle")
     .attr("font-size", "10")
-    .attr("transform", "translate(" + width / 2 + "," + (height + margin.top + 10) + ")")
+    .attr("transform", "translate(" + width / 2 + "," + (height + margin.top + margin.bottom - 30) + ")")
 // Add the Y Axis
 lineChart.append("g")
     .call(d3.axisLeft(y).ticks(5).tickSize(8));
 lineChart.append("g")
     .call(d3.axisLeft(y).ticks(15).tickSize(4).tickFormat(""));
 
+// add group
 var family = lineChart.selectAll("g.family")
     .data(fonts)
   .enter().append("g")
     .attr("class", "family")
     .attr("stroke", (d, i) => getColor(i, fonts.length, 70))
+
+family
+  .on("mouseover", (d, i) => {
+    lineChart.append("text")
+      .attr("class", "legend")
+      .attr("transform", `translate(${width},${margin.top})`)
+      .text(d.name)
+  })
+  .on("mouseout", (d, i) => {
+    lineChart.select(".legend")
+      .remove()
+  })
 
 // define the line
 const valueline = d3.line()
@@ -124,7 +137,7 @@ family.selectAll(".dot")
     .attr("r", 2)
     .exit()
 
-const table = d3.select(".table table")
+const table = d3.select(".table")
 
 const handleMouseOver = (font, value) => {
   d3.select(`.pie.${font.name}`)
@@ -140,10 +153,11 @@ const handleMouseOut = (font, value) => {
 }
 
 fonts.map((el, i, arr) => {
-  const row = table.append("tr")
+  const row = table.append("div")
+    .attr("class", "row")
   row.data(el)
 
-  const pieChart = row.append("td").append("svg")
+  const pieChart = row.append("svg")
       .attr("class", `pie ${el.name}`)
       .attr("width",  128)
       .attr("height", 128)
@@ -165,7 +179,7 @@ fonts.map((el, i, arr) => {
         .attr("fill", getColor(i, arcs.length, 90 - arcIndex * 40 / arcs.length))
 
   })
-  row.append("td")
+  row.append("div")
     .text(el.name)
 
 })

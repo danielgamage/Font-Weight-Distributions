@@ -1,4 +1,10 @@
-html{
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
   font-size: 14px;
 }
 body {
@@ -31,12 +37,9 @@ body {
 }
 
 svg {
+  display: block;
   width: 100%;
   height: 100%;
-}
-.pie {
-  width: 5rem;
-  height: 5rem;
 }
 
 .grid .tick line {
@@ -51,6 +54,9 @@ svg {
 }
 .domain {
   stroke: #aab;
+}
+.legend {
+  text-anchor: end;
 }
 
 .line {
@@ -68,13 +74,41 @@ svg {
   text-anchor: middle;
 }
 
+.table-container{
+  position: relative;
+}
+.table-container::before,
+.table-container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1rem;
+}
+.table-container::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0))
+}
+.table-container::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0))
+}
 .table {
-  overflow-x: auto;
+  overflow: auto;
+  scroll-snap-type: mandatory;
+  scroll-snap-type: y mandatory;
+  height: 7rem;
   text-align: left;
 }
-td {
-  padding: 0.5rem;
+.row {
+  scroll-snap-coordinate: 0% 0%;
+  scroll-snap-align: none start;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
 }
-td.primary {
-  font-style: italic;
+.pie {
+  width: 5rem;
+  height: 5rem;
+  margin-right: 1rem;
 }
