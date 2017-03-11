@@ -108,13 +108,20 @@ var family = lineChart.selectAll("g.family")
     .attr("stroke", (d, i) => getColor(i, fonts.length, 70))
 
 family
-  .on("mouseover", (d, i) => {
+  .on("mouseover", (d, i, elements) => {
+    d3.select(elements[i]).raise()
+    d3.selectAll(elements)
+      .filter((el, si) => si !== i)
+      .style('opacity', 0.2)
     lineChart.append("text")
       .attr("class", "legend")
       .attr("transform", `translate(${width},${margin.top})`)
       .text(d.name)
   })
-  .on("mouseout", (d, i) => {
+  .on("mouseout", (d, i, elements) => {
+    d3.selectAll(elements)
+      .filter((el, si) => si !== i)
+      .style('opacity', 1)
     lineChart.select(".legend")
       .remove()
   })
@@ -160,6 +167,9 @@ const handleMouseOut = (font, value) => {
 fonts.map((el, i, arr) => {
   const row = table.append("div")
     .attr("class", "row")
+  .append("div")
+    .attr("class", "container")
+
   row.data(el)
 
   const pieChart = row.append("svg")
@@ -223,14 +233,15 @@ const handleScroll = () => {
     scrollSpring.setCurrentValue(container.scrollTop)
   }
   rows.map((row, i) => {
+    const container = row.querySelector(".container")
     const transformAmount = Math.min(Math.abs((currScrollTop - row.offsetTop) / 1000), 1) * -1 + 1
-    row.style.opacity   = transformAmount ** 100
-    row.style.transform = `scale(${transformAmount})`
+    container.style.opacity   = transformAmount ** 100
+    container.style.transform = `scale(${transformAmount})`
   })
 }
 const scrollThumbnails = (e) => {
   const direction = e.target.getAttribute('data-dir') === `next` ? 1 : -1
-  const distance = (rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top)
+  const distance = (rows[1].offsetTop - rows[0].offsetTop)
   return (container.scrollTop + distance * direction)
 }
 
